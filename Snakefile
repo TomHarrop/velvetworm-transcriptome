@@ -343,6 +343,7 @@ rule trinity_abundance:
         '--SS_lib_type RF '
         '--thread_count {threads} '
         '--trinity_mode '
+        '--output_dir . '
         '&> {log}'
 
 
