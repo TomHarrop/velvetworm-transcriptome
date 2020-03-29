@@ -157,7 +157,7 @@ rule trinotate:
     log:
         'output/logs/trinotate.{run}.log'
     threads:
-        min(multiprocessing.cpu_count, 64)
+        min(multiprocessing.cpu_count(), 64)
     singularity:
         trinotate
     shell:
