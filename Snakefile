@@ -333,7 +333,6 @@ rule trinity_abundance:
     singularity:
         trinity
     shell:
-        'cd {params.outdir} || exit 1 ; '
         'align_and_estimate_abundance.pl '
         '--transcripts {params.transcripts} '
         '--seqType fq '
@@ -343,7 +342,7 @@ rule trinity_abundance:
         '--SS_lib_type RF '
         '--thread_count {threads} '
         '--trinity_mode '
-        '--output_dir . '
+        '--output_dir {params.outdir} '
         '&> {log}'
 
 
