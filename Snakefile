@@ -285,8 +285,7 @@ rule abundance_to_matrix:
         qf = 'output/040_trinity-abundance/{run}/quant.sf',
         gtm = 'output/030_trinity/trinity_{run}/Trinity.fasta.gene_trans_map'
     output:
-        'output/040_trinity-abundance/{run}/salmon.isoform.counts.matrix',
-        'output/040_trinity-abundance/{run}/salmon.isoform.TMM.EXPR.matrix'
+        'output/040_trinity-abundance/{run}/salmon.isoform.counts.matrix'
     params:
         outdir = 'output/040_trinity-abundance/{run}',
         qf = lambda wildcards, input: Path(input.qf).resolve(),
