@@ -54,6 +54,7 @@ trinotate = 'shub://TomHarrop/trinotate_pipeline:v0.0.12'
 
 
 raw_read_csv = 'data/raw_read_paths.csv'
+busco_threads = min(128, multiprocessing.cpu_count())
 
 ########
 # MAIN #
@@ -123,8 +124,9 @@ rule busco:
         fasta = lambda wildcards, input: Path(input.fasta).resolve(),
         lineage = lambda wildcards, input:
             Path(input.lineage).resolve()
-    threads:
-        multiprocessing.cpu_count()
+    # blast is taking too long, run them simulataneously
+    # threads:
+    #     multiprocessing.cpu_count()
     singularity:
         busco
     shell:
@@ -134,7 +136,7 @@ rule busco:
         '--in {params.fasta} '
         '--out {params.name} '
         '--lineage_dataset {params.lineage} '
-        '--cpu {threads} '
+        f'--cpu {busco_threads} '
         '--mode transcriptome '
         '&> {log}'
 
