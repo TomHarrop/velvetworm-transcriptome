@@ -7,7 +7,7 @@ sink(log, type = "output", append = TRUE)
 library(data.table)
 
 expr_file <- snakemake@input[["expr"]]
-quant_sf_file <- snakemake@input[["qf"]][[1]]
+quant_sf_file <- snakemake@input[["qf"]]
 gtm_file <- snakemake@input[["gtm"]]
 
 # dev

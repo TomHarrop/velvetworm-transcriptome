@@ -71,8 +71,6 @@ all_lanes = sorted(set(x[1] for x in raw_read_df.index.values))
 
 rule target:
     input:
-        # expand('output/030_trinity/trinity_{run}/Trinity.fasta',
-        #        run=['raw', 'merged'])
         expand('output/040_trinity-abundance/{run}/ExN50.pdf',
                run=['raw', 'merged']),
         expand('output/045_transcript-length/{run}/blastx.outfmt6.grouped',
@@ -381,10 +379,8 @@ rule filter_isoforms:
 
 rule transcripts_by:
     input:
-        qf = expand('output/040_trinity-abundance/{{run}}/{indiv}/quant.sf',
-                    indiv=all_indivs),
-        expr = ('output/040_trinity-abundance/{run}/'
-                'salmon.isoform.TMM.EXPR.matrix'),
+        qf = 'output/040_trinity-abundance/{run}/quant.sf',
+        expr = 'output/040_trinity-abundance/{run}/salmon.isoform.TPM.not_cross_norm',
         gtm = 'output/030_trinity/trinity_{run}/Trinity.fasta.gene_trans_map'
     output:
         ln = ('output/050_transcripts-by/{run}/'
