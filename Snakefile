@@ -96,7 +96,7 @@ rule plot_busco_results:
 
 rule fix_busco_table:
     input:
-        'output/099_busco/{run}.{filter}/busco/run_hymenoptera_odb10/full_table.tsv'
+        'output/099_busco/{run}.{filter}/busco/run_metazoa_odb10/full_table.tsv'
     output:
         'output/099_busco/{run}.{filter}/fixed_full_table.csv'
     log:
@@ -109,10 +109,10 @@ rule fix_busco_table:
 rule busco:
     input:
         fasta = 'output/050_transcripts-by/{run}/{filter}.fasta',
-        lineage = 'data/hymenoptera_odb10'
+        lineage = 'data/metazoa_odb10'
     output:
         ('output/099_busco/{run}.{filter}/'
-         'busco/run_hymenoptera_odb10/'
+         'busco/run_metazoa_odb10/'
          'full_table.tsv'),
     log:
         Path(('output/logs/'
@@ -135,7 +135,6 @@ rule busco:
         '--out {params.name} '
         '--lineage_dataset {params.lineage} '
         '--cpu {threads} '
-        '--augustus_species honeybee1 '
         '--mode transcriptome '
         '&> {log}'
 
