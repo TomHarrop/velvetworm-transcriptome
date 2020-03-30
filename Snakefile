@@ -47,7 +47,7 @@ def resolve_input_fastq(wildcards):
 ###########
 
 bbduk = 'shub://TomHarrop/seq-utils:bbmap_38.76'
-busco = 'docker://ezlabgva/busco:v4.0.4_cv1'
+busco = 'docker://ezlabgva/busco:v4.0.5_cv1'
 r = 'shub://TomHarrop/r-containers:r_3.6.2'
 trinity = 'shub://TomHarrop/assemblers:trinity_2.9.1'
 trinotate = 'shub://TomHarrop/trinotate_pipeline:v0.0.12'
