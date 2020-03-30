@@ -282,16 +282,14 @@ rule contig_exn50:
 
 rule abundance_to_matrix:
     input:
-        qf = expand('output/040_trinity-abundance/{{run}}/{indiv}/quant.sf',
-                    indiv=all_indivs),
+        qf = 'output/040_trinity-abundance/{run}/quant.sf',
         gtm = 'output/030_trinity/trinity_{run}/Trinity.fasta.gene_trans_map'
     output:
         'output/040_trinity-abundance/{run}/salmon.isoform.counts.matrix',
         'output/040_trinity-abundance/{run}/salmon.isoform.TMM.EXPR.matrix'
     params:
         outdir = 'output/040_trinity-abundance/{run}',
-        qf = lambda wildcards, input:
-            sorted(set(Path(x).resolve() for x in input.qf)),
+        qf = lambda wildcards, input: Path(input.qf).resolve(),
         gtm = lambda wildcards, input:
             Path(input.gtm).resolve()
     log:
@@ -303,7 +301,7 @@ rule abundance_to_matrix:
         'abundance_estimates_to_matrix.pl '
         '--est_method salmon '
         '--gene_trans_map {params.gtm} '
-        '--name_sample_by_basedir '
+        # '--name_sample_by_basedir '
         '{params.qf} '
         '&> {log}'
 
@@ -316,8 +314,7 @@ rule trinity_abundance:
         r2 = expand('output/010_reads/{indiv}_R2.fastq.gz',
                     indiv=all_indivs)
     output:
-        expand('output/040_trinity-abundance/{{run}}/{indiv}/quant.sf',
-               indiv=all_indivs)
+        'output/040_trinity-abundance/{run}/quant.sf'
     params:
         outdir = 'output/040_trinity-abundance/{run}',
         transcripts = lambda wildcards, input:
